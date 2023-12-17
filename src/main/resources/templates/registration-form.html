@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- ... (your existing head content) ... -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="styles.css">
+	<!-- Add Font Awesome library if not already included -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<title>Form Page</title>
+	<style>
+      /* ... (your existing styles) ... */
+
+      .error {
+         color: red;
+         font-size: 14px;
+         margin-top: 5px;
+      }
+      body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('https://images.inc.com/uploaded_files/image/1920x1080/getty_597239200_267856.jpg'); /* Add your background image path */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.navbar {
+    background-color: #294C8E;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-links li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+.form-container {
+    background-color: rgba(255, 255, 255, 0.8); /* Transparent white background */
+    margin: 15%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-right: 30%;
+    margin-left: 30%;
+    margin-top: 12%;
+}
+
+.form-group label {
+    width: 100%;
+    text-align: left; /* Align labels to the left */
+    margin-right: 10px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #294C8E;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+/* Style the form as needed */
+
+   </style>
+</head>
+<body>
+<nav class="navbar">
+	<div class="logo">
+		<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs6EuuU63OPV5tpGuub1gXHMrg3Qlw_jVe2w&usqp=CAU" alt="Logo" height="60" width="60" />
+	</div>
+	<ul class="nav-links">
+		<li><a th:href="@{/Dashboard}" class="active">Home</a></li>
+	</ul>
+</nav>
+<!-- ... (your existing body content) ... -->
+<div class="form-container">
+	<h1> User Management</h1>
+	<form th:action="@{/Manager/processForm}" th:object="${user}" method="post">
+
+		<!-- First Name -->
+		<div class="form-group">
+			<label for="firstName">First Name</label>
+			<input type="text" th:field="*{firstName}" class="form-control"
+				   placeholder="First Name" id="firstName" name="firstName">
+			<div th:if="${#fields.hasErrors('firstName')}" class="error" th:errors="*{firstName}"></div>
+		</div>
+		<br><br>
+
+		<!-- Last Name -->
+		<div class="form-group">
+			<label for="lastName">Last Name</label>
+			<input type="text" th:field="*{lastName}" class="form-control"
+				   placeholder="Last Name" id="lastName" name="lastName">
+			<div th:if="${#fields.hasErrors('lastName')}" class="error" th:errors="*{lastName}"></div>
+		</div>
+		<br><br>
+
+		<!-- Username -->
+		<div class="form-group">
+			<label for="username">Username</label>
+			<input type="text" th:field="*{username}" class="form-control"
+				   placeholder="Username" id="username" name="username">
+			<div th:if="${#fields.hasErrors('username')}" class="error" th:errors="*{username}"></div>
+		</div>
+		<br><br>
+
+		<!-- Email -->
+		<div class="form-group">
+			<label for="email">Email</label>
+			<input type="text" th:field="*{email}" class="form-control"
+				   placeholder="Email" id="email" name="email">
+			<div th:if="${#fields.hasErrors('email')}" class="error" th:errors="*{email}"></div>
+		</div>
+		<br><br>
+
+		<!-- Phone Number -->
+		<div class="form-group">
+			<label for="phoneNumber">Phone Number</label>
+			<input type="text" th:field="*{phoneNumber}" class="form-control"
+				   placeholder="Phone Number" id="phoneNumber" name="phoneNumber">
+			<div th:if="${#fields.hasErrors('phoneNumber')}" class="error" th:errors="*{phoneNumber}"></div>
+		</div>
+		<br><br>
+
+		<!-- Password -->
+		<div class="form-group">
+			<label for="password">Password</label>
+			<input type="password" th:field="*{password}" class="form-control"
+				   placeholder="Password" id="password" name="password">
+			<div th:if="${#fields.hasErrors('password')}" class="error" th:errors="*{password}"></div>
+		</div>
+		<br><br>
+
+		<!-- Roles -->
+		<div class="form-group">
+			<label for="formRole">Roles</label>
+			<select th:field="*{formRole}" class="form-control" id="formRole">
+				<option value="" selected>Select Role</option>
+				<option value="ROLE_STUDENT">Student</option>
+				<option value="ROLE_EMPLOYER">Employer</option>
+				<option value="ROLE_OPERATIONS_MANAGER">Operations Manager</option>
+			</select>
+			<div th:if="${#fields.hasErrors('formRole')}" class="error" th:errors="*{formRole}"></div>
+		</div>
+		<br><br>
+
+		<button type="submit" name="action">Submit</button>
+	</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add Font Awesome library if not already included -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Form Page</title>
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('https://images.inc.com/uploaded_files/image/1920x1080/getty_597239200_267856.jpg'); /* Add your background image path */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.navbar {
+    background-color: #294C8E;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-links li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+.form-container {
+    background-color: rgba(255, 255, 255, 0.8); /* Transparent white background */
+    margin: 15%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-right: 30%;
+    margin-left: 30%;
+    margin-top: 12%;
+}
+
+.form-group label {
+    width: 100%;
+    text-align: left; /* Align labels to the left */
+    margin-right: 10px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #294C8E;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+/* Style the form as needed */
+
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="logo">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs6EuuU63OPV5tpGuub1gXHMrg3Qlw_jVe2w&usqp=CAU" alt="Logo" width="50" height="50" />
+    </div>
+    <ul class="nav-links">
+        <li><a th:href="@{/Dashboard}" class="active">Home</a></li>
+    </ul>
+</nav>
+<div class="form-container">
+    <h1> Internship </h1>
+    <form  action="#" th:action="@{/internships/save}" th:object="${internship}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}">
+        <input type="hidden" name="AuthId" th:value="${AuthId}" />
+
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" th:field="*{title}" placeholder="Enter Title" required/>
+        </div>
+        <br><br>
+
+        <div class="form-group">
+            <label for="company">Company</label>
+            <input type="text" th:field="*{company}" class="form-control"
+                   placeholder="company"  id="company" name="company">
+        </div>
+        <br><br>
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" th:field="*{location}" class="form-control"
+                   placeholder="Location" id="location" name="location">
+        </div>
+        <br><br>
+
+        <div class="form-group">
+            <label for="startDate"> Start Date</label>
+            <input type="date" th:field="*{startDate}" class="form-control"
+                   placeholder="start date" id="startDate" name="startDate">
+        </div>
+        <br><br>
+
+        <div class="form-group">
+            <label for="endDate"> End Date</label>
+            <input type="date" th:field="*{endDate}" class="form-control"
+                   placeholder="End date" id="endDate" name="endDate">
+        </div>
+        <br><br>
+
+        <div class="form-group">
+            <label for="description"> Description</label>
+            <input type="text" th:field="*{description}" class="form-control"
+                   placeholder="description" id="description" name="description">
+        </div>
+        <br><br>
+
+        <div class="form-group">
+            <label for="requirements">Requirements</label>
+            <select name="requirements" id="requirements" th:field="*{requirements}" required>
+                <option value="">Select Requirements</option>
+                <option value="Programming Languages">Programming Languages</option>
+                <option value="Web Technologies">Web Technologies</option>
+                <option value="Database Management">Database Management</option>
+                <option value="Data Analysis/Science">Data Analysis/Science</option>
+                <option value="Communication and Collaboration">Communication and Collaboration:</option>
+
+            </select>
+        </div>
+
+        <br><br>
+
+        <div class="form-group">
+            <label for="report">Upload CV</label>
+            <input type="file" id="report" name="report" accept="application/pdf" required/>
+        </div>
+        <br><br>
+
+        <button type="submit" name="action">Submit</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Get Internship Portal</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        header {
+            background-color: #294C8E;
+            padding: 10px;
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        li {
+            margin-right: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .logo img {
+            height: 30px;
+            width: auto;
+            vertical-align: middle;
+        }
+
+        .background-image {
+            background-image: url('https://images.inc.com/uploaded_files/image/1920x1080/getty_597239200_267856.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: calc(100vh - 50px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .centered-text h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #fff;
+            margin: 0;
+        }
+
+        .gif-container img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+        }
+
+        .dashboard-content {
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/Dashboard}">Home</a></li>
+            <li><a th:href="@{/internships/list}">Available Internships offers</a></li>
+            <li sec:authorize="hasRole('ROLE_OPERATIONS_MANAGER')"><a th:href="@{/Manager/show}">Register new User</a></li>
+            <li sec:authorize="hasRole('ROLE_EMPLOYER')"><a th:href="@{/internships/showFormForAdd}">Add Internship</a></li>
+            <li sec:authorize="hasRole('ROLE_OPERATIONS_MANAGER')"> <a th:href="@{/Manager/listUsers}">Manage Users</a></li>
+            <li><div class="logout"><a th:href="@{/showMyLoginPage}">Logout</a></div></li>
+        </ul>
+        <div class="logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs6EuuU63OPV5tpGuub1gXHMrg3Qlw_jVe2w&usqp=CAU" alt="Logo"></div>
+    </nav>
+</header>
+
+<div class="background-image">
+    <div class="centered-text">
+        <h1>GET INTERNSHIP PORTAL</h1>
+    </div>
+</div>
+
+<div class="dashboard-content">
+    <!-- Rest of the content -->
+</div>
+</body>
+
+</html>

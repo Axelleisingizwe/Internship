@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Success Message</title>
+    <!-- Reference Bootstrap files -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-image: url('https://images.inc.com/uploaded_files/image/1920x1080/getty_597239200_267856.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: blue;
+        }
+
+        .home {
+            color: blue;
+            font-size: 20;
+        }
+
+        nav ul li.logo {
+            margin-left: auto;
+        }
+
+        nav ul li.logo img {
+            height: 30px;
+            width: auto;
+            vertical-align: middle;
+        }
+
+        header {
+            background-color: #333;
+            height: 50px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+
+            <li><h3>GET INTERNSHIP PORTAL</h3></li>
+            <li>
+                <div class="home">
+                    <a th:href="@{/Dashboard}">Home</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="container">
+    <h2>Thank You, your email has been sent</h2>
+</div>
+
+</body>
+</html>

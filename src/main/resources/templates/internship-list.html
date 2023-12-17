@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>New Page</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('https://images.inc.com/uploaded_files/image/1920x1080/getty_597239200_267856.jpg'); /* Add your background image path */
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.navbar {
+    background-color: #294C8E;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-links li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+.table-container {
+    background-color: rgba(255, 255, 255, 0.8); /* Transparent white background */
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 15%;
+}
+
+.add-data-button {
+    background-color: #4CAF50; /* Green */
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+table th {
+    background-color: #4CAF50; /* Green */
+    color: #fff;
+}
+
+.edit-button, .delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.delete-button {
+    background-color: #FF5733; /* Red */
+}
+
+.edit-button {
+    background-color: #4CAF50; /* Green */
+}
+    </style>
+</head>
+
+<body>
+<nav class="navbar">
+
+    <ul class="nav-links">
+        <li><a th:href="@{/Dashboard}" class="active">Home</a></li>
+    </ul>
+</nav>
+<div class="table-container">
+    <a th:href="@{/internships/showFormForAdd}"><button class="add-data-button">+Add Internship</button></a>
+    <div class="search-container" >
+        <form th:action="@{/internships/page/1}">
+            Filter: <input type="text" name="keyword" th:value="${keyword}" required/>
+            &nbsp;
+            <input type="submit" value="Search"/>
+            &nbsp;
+            <input type="button" value="Clear" onclick="clearFilter()"/>
+
+        </form>
+
+    </div>
+    &nbsp;
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th> Company</th>
+            <th> Location</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Description</th>
+            <th>Requirements</th>
+            <th>Application</th>
+            <th>Employer ID</th>
+            <th>Employer Name</th>
+            <th>Employer Email</th>
+            <th>Action</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tempInternship : ${theInternships}">
+            <td th:text="${tempInternship.title}"/>
+            <td th:text="${tempInternship.company}"/>
+            <td th:text="${tempInternship.location}"/>
+            <td th:text="${tempInternship.startDate}"/>
+            <td th:text="${tempInternship.endDate}"/>
+            <td th:text="${tempInternship.description}"/>
+            <td th:text="${tempInternship.requirements}"/>
+            <td><a th:href="@{'/internships/view/' + ${tempInternship.application}}" th:text="${tempInternship.application}"></a></td>
+            <td th:text="${tempInternship.user.id}" />
+            <td th:text="${tempInternship.user.firstName} +' '+ ${tempInternship.user.lastName}"/>
+            <td th:text="${tempInternship.user.email}" />
+
+
+            <td>
+                <div>
+                    <form th:action="@{/internships/showFormForUpdate}" sec:authorize="hasRole('ROLE_EMPLOYER')" method="post">
+                        <input type="hidden" name="internshipId" th:value="${tempInternship.id}" />
+                        <button type="submit" class="btn btn-info btn-sm">Modify</button>
+                    </form>
+                </div>
+                <br/>
+                <div>
+                    <form sec:authorize="hasRole('ROLE_EMPLOYER')" th:action="@{/internships/deleteInternship}" method="post" onsubmit="return confirm('Are you sure you want to delete this Internship?')">
+                        <input type="hidden" name="internshipId" th:value="${tempInternship.id}" />
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+
+                </div>
+            </td>
+            <td>
+                <a th:href="@{/email/email-attachment}" sec:authorize="hasRole('ROLE_STUDENT')"
+                   class="btn btn-primary btn-sm mb-3">
+                    Apply for THIS
+                </a>
+            </td>
+
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+<div class="page-color">
+    <center>
+        Total Internships: [[${totalItems}]] - Page [[${currentPage}]] of [[${totalPages}]]
+        &nbsp; &nbsp; - &nbsp; &nbsp;
+        <a th:if="${currentPage > 1}" th:href="@{/internships/page/1}">First</a>
+        <span th:unless="${currentPage > 1}">First</span>
+        &nbsp;&nbsp;
+        <a th:if="${currentPage > 1}" th:href="@{'/internships/page/' + ${currentPage - 1}}">Previous </a>
+        <span th:unless="${currentPage > 1}">Previous</span>
+        &nbsp; &nbsp;
+        <span th:each="i: ${#numbers.sequence(1, totalPages)}" th:if="${totalPages != 0}">
+    <a th:if="${i != currentPage}" th:href="@{'/internships/page/' + ${i}}">[[${i}]]</a>
+    <span th:unless="${i != currentPage}">[[${i}]]</span>
+    &nbsp;&nbsp;
+</span>
+        <span th:each="i: ${#numbers.sequence(1, 1)}" th:if="${totalPages == 0}">
+    <a th:if="${i != currentPage}" th:href="@{'/internships/page/' + ${i}}">[[${i}]]</a>
+    <span th:unless="${i != currentPage}">[[${i}]]</span>
+    &nbsp;&nbsp;
+</span>
+        <a th:if="${currentPage < totalPages}" th:href="@{'/internships/page/' + ${currentPage + 1}}">Next</a>
+        <span th:unless="${currentPage < totalPages}">Next</span>
+
+        &nbsp;&nbsp;
+        <a th:if="${currentPage < totalPages}" th:href="@{'/internships/page/' + ${totalPages}}">Last</a>
+        <span th:unless="${currentPage < totalPages}">Last</span>
+
+    </center>
+</div>
+<script type="text/javascript">
+    function clearFilter(){
+    window.location = '/internships/list';
+    }
+</script>
+</body>
+
+</html>
